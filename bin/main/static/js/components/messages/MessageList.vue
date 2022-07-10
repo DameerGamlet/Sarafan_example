@@ -1,4 +1,4 @@
- <template>
+<template>
     <div style="position: relative; width: 300px;">
         <message-form :messages="messages" :messageAttr="message" />
         <message-row v-for="message in messages"

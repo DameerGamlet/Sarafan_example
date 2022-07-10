@@ -6,6 +6,8 @@ import com.example.sarafan.repositories.MessageRepository;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.View;
@@ -43,5 +45,11 @@ public class MessageController {
     @DeleteMapping("{id}")
     public void deleteMessage(@PathVariable("id") Message message) {
         messageRepository.delete(message);
+    }
+
+    @MessageMapping("/changeMessage")
+    @SendTo("/topic/activity")
+    public Message message(Message message) {
+        return messageRepository.save(message);
     }
 }
